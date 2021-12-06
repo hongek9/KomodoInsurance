@@ -51,7 +51,7 @@ namespace KomodoInsurance_Repo
 
             if(developerTeam.Developers != null && developer != null)
             {
-                developerTeam.Developers.Add(developer);  // This is throwing an error.
+                developerTeam.Developers.Add(developer); 
                 return true;
             } else if(developerTeam != null && developer != null)
             {

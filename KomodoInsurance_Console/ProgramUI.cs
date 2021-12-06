@@ -177,7 +177,15 @@ namespace KomodoInsurance_Console
         }
         private void ViewDeveloperTeamById()
         {
+            Console.Clear();
 
+            Console.WriteLine("Enter the id of the developer team you would like to see:");
+
+            int devTeamId = int.Parse(Console.ReadLine());
+
+            DeveloperTeam devTeam = _teamRepo.GetDeveloperTeamById(devTeamId);
+
+            DisplayDeveloperTeam(devTeam);
         }
         private void AddDeveloperToTeam()
         {
@@ -208,11 +216,40 @@ namespace KomodoInsurance_Console
         }
         private void RemoveDeveloperFromTeam()
         {
+            ViewAllDeveloperTeams();
 
+            Console.WriteLine("Enter the id of the team you would like to remove a developer from:");
+
+            int teamId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter the id of the developer you would like to remove from the team:");
+
+            int developerId = int.Parse(Console.ReadLine());
+
+            Developer dev = _developerRepo.GetDeveloperById(developerId);
+
+            bool removeSuccessful = _teamRepo.RemoveDeveloperFromteam(teamId, dev);
+
+            if (removeSuccessful)
+            {
+                Console.WriteLine("Developer successfully removed.");
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong, please try again.");
+            }
         }
         private void ViewDevelopersWithoutPluralsightAccess()
         {
+            List<Developer> devs = _developerRepo.GetAllDevelopers();
 
+            foreach(Developer dev in devs)
+            {
+                if (!dev.HasPluralsightAccess)
+                {
+                    DisplayDeveloper(dev);
+                }
+            }
         }
 
         private void DisplayDeveloper(Developer dev)
